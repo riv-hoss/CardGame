@@ -159,19 +159,18 @@ public class Deck {
 
     // with recursive - efficient
     public Deck mergeSort() {
-        int thisDeckLength = this.getCards().length;
-        Deck sortDeck = new Deck(thisDeckLength);
-        if (thisDeckLength == 0 || thisDeckLength == 1) { // if the deck has 0 or 1 cards, return it
+        int len = this.getCards().length;
+        if (len == 0 || len == 1) { // if the deck has 0 or 1 cards, return it
             return this;
-        }
-        // otherwise, divide the deck into two subdecks
-        Deck sub1 = this.subDeck(0, thisDeckLength/2);
-        Deck sub2 = this.subDeck(thisDeckLength/2 + 1, thisDeckLength -1);
-        sub1.mergeSort(); // sort the subdecks using mergeSort
-        sub2.mergeSort();
-        sortDeck = merge(sub1, sub2); // merge the subdecks
+        } else {
+            // otherwise, divide the deck into two subdecks
+            Deck d1 = subDeck(0, len/2 -1).mergeSort();
+            Deck d2 = subDeck(len/2, len -1).mergeSort(); // sort the subdecks using mergeSort
 
-        return sortDeck; // return the result
+            return merge(d1, d2); //merge the subdecks and return the result
+
+        }
+
     }
 
 }
